@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-xs-12">
+    <p><strong>Agregar Usuario</strong></p>
+    <label>Nombre:</label>
+    <input type="text" class="form-control" #userNameInput>
+    <label>Número de documento de identidad:</label>
+    <input type="text" class="form-control" #userIdInput>
+    <button class="btn btn-primary" (click)="onCreateUser(userNameInput)">Agregar Usuario</button>
+    <button class="btn btn-primary" (click)="onCreateAdmin(userNameInput)">Agregar Administrador</button>
+  </div>
+</div>

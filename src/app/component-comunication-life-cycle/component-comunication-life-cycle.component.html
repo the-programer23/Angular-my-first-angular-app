@@ -1,0 +1,16 @@
+<div class="container">
+  <app-cockpit-recap (userCreated)="onUserData($event)" (adminCreated)="onAdminData($event)"></app-cockpit-recap>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="onChangeFirst()">Cambiar Nombre</button>
+      <button class="btn btn-danger" (click)="onDestroyFirst()">Destruir Primer Elemento</button>
+      <app-user-element *ngFor="let CcsUser of CcsUsers" [name]="CcsUser.name">
+        <p #contentParagraphId>
+          <strong *ngIf="CcsUser.type === 'admin'" style="color: red">({{CcsUser.id}})</strong>
+          <em *ngIf="CcsUser.type === 'user'" style="color: purple">({{CcsUser.id}})</em>
+        </p>
+      </app-user-element>
+    </div>
+  </div>
+</div>

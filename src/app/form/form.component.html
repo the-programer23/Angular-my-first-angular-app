@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row" *ngIf="!showFormTwo">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div id="user-data" ngModelGroup="userData" #userData=ngModelGroup>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="form-control" ngModel name="username" required>
+          </div>
+          <button class="btn btn-default" type="button" (click)="suggestUserName()">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+            <span class="help-block" *ngIf="!email.valid && email.touched">Por favor ingresa un email válido</span>
+          </div>
+        </div>
+        <p *ngIf="!userData.valid && userData.touched">La información que ingresaste no es válida</p>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret" class="form-control" [ngModel]="defaultQuestion" name="secret">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea name="questionAnswer" rows="3" [(ngModel)]="answer" class="form-control"></textarea>
+        </div>
+        <p>Su respuesta es: {{answer}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" name="gender" ngModel [value]="gender" required>
+            {{gender}}
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Sus datos</h3>
+      <p>Nombre de usuario: {{user.username}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Pregunta secreta: {{user.secretQuestion}}</p>
+      <p>Respuesta: {{user.answer}}</p>
+      <p>Genero: {{user.gender}}</p>
+    </div>
+  </div>
+  <hr>
+  <button (click)="onShowFormTwo()" class="btn btn-primary">Show form 2</button>
+  <div class="row" *ngIf="showFormTwo">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form #fTwo="ngForm" (ngSubmit)="onFormTwoSubmit()">
+        <div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="emailTwo" name="emailTwo" class="form-control" required email ngModel
+              #emailTwo="ngModel">
+            <span class="help-block" *ngIf="!emailTwo.valid && emailTwo.touched">Por favor ingresa un email
+              válido</span>
+          </div>
+          <div class="form-group">
+            <select class="form-control" name="subscriptions" id="subscriptions" [ngModel]="defaultSubscription">
+              <option *ngFor="let subscription of subscriptions" [value]="subscription">{{subscription}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" required ngModel
+              #password="ngModel">
+            <span class="help-block" *ngIf="!password.valid && password.touched">Ingresa una contraseña</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!fTwo.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

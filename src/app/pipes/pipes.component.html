@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <input type="text" [(ngModel)]="filteredStatus">
+      <br>
+      <br>
+      <button class="btn btn-primary" (click)="onAddServer()">Add server</button>
+      <br><br>
+      <h2>App status: {{appstatus | async}}</h2>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let server of servers | filter:filteredStatus:'status' | sort:'name'"
+          [ngClass]="getStatusClasses(server)">
+          <span class="badge">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shorten:15 }}</strong> | {{ server.instanceType | uppercase | reverse }} |
+          {{ server.started | date: 'fullDate' | uppercase}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Currency Converter</h3>
+      <p>{{v | currency: 'COP'}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Flying Heroes (pure pipe)</h2>
+      <p>
+      New hero:
+        <input type="text" #box
+                (keyup.enter)="addHero(box.value); box.value=''"
+                placeholder="hero name">
+        <input id="can-fly" type="checkbox" [(ngModel)]="canFly"> can fly
+      </p>
+      <p>
+        <input id="mutate" type="checkbox" [(ngModel)]="mutate">Mutate array
+        <button (click)="reset()">Reset</button>
+      </p>
+
+      <h4>Heroes who fly (piped)</h4>
+      <div id="flyers">
+        <div *ngFor="let hero of (heroes | flyingHeroes)">
+          {{hero.name}}
+        </div>
+      </div>
+
+      <h4>All Heroes (no pipe)</h4>
+      <div id="all">
+        <div *ngFor="let hero of heroes">
+          {{hero.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
